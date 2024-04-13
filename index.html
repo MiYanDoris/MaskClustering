@@ -85,26 +85,16 @@
   </div>
   </div>
 </section>
-<br>
-<br>
 
 <!-- abstract -->
 <section>
   <div class="container" style="width:70%">
     <div class="row">
       <div class="col-12">
-        <h2><strong>Abstract</strong></h2>
+        <h2><strong>1. Abstract</strong></h2>
         <hr style="margin-top:0px">
         <p class="text-justify">
-          Open-vocabulary 3D instance segmentation has emerged as a frontier topic due to its capability to segment 3D instances beyond a predefined set of categories. 
-          However, compared to significant progress in the 2D domain, methods for 3D open-vocabulary instance segmentation are hindered by the limited scale of high-quality annotated 3D data.
-          To capitalize on the advantages of the 2D domain, we propose to cluster view-consensus 2D masks with corresponding open-vocabulary features for open-vocabulary 3D instance segmentation. 
-          Our method evaluates view consensus of all candidate mask pairs, which indicates that both two masks should be contained in a substantial number of other observed masks. 
-          Mask pairs are represented as two connected nodes of a mask graph, and the weight of the edge is the view consensus, then our method iterative clusters the nodes with shared high view consensus.
-          The corresponding 3D points cluster of the 2D mask clusters can be regarded as zero-shot 3D instances, along with the fused open-vocabulary features from clustered 2D masks.
-          The advantages of our methods come from the prior instance knowledge from massive zero-shot masks predicted by visual foundation models, without the need of training on 3D data. 
-          Through extensive experiments on publicly available datasets, including ScanNet200 and
-          MatterPort3D, we demonstrate that our method achieves state-of-the-art performance in both zero-shot segmentation and open-vocabulary understanding.  
+          Open-vocabulary 3D instance segmentation is cutting-edge for its ability to segment 3D instances without predefined categories. However, progress in 3D lags behind its 2D counterpart due to limited annotated 3D data. To address this, recent works first generate 2D open-vocabulary masks through 2D models and then merge them into 3D instances based on metrics calculated between two neighboring frames. In contrast to these local metrics, we propose a novel metric, view consensus rate, to enhance the utilization of multi-view observations. The key insight is that two 2D masks should be deemed part of the same 3D instance if a significant number of other 2D masks from different views contain both these two masks. Using this metric as edge weight, we construct a global mask graph where each mask is a node. Through iterative clustering of masks showing high view consensus, we generate a series of clusters, each representing a distinct 3D instance. Notably, our model is training-free. Through extensive experiments on publicly available datasets, including ScanNet++, ScanNet200 and MatterPort3D, we demonstrate that our method achieves state-of-the-art performance in open-vocabulary 3D instance segmentation.  
         </p>
       </div>
     </div>
@@ -118,7 +108,7 @@
   <div class="container" style="width:100%">
     <div class="row">
       <div class="col-12">
-        <h2><strong>Qualitative Results on ScanNet</strong></h2>
+        <h2><strong>2. Qualitative Results on ScanNet</strong></h2>
         <hr style="margin-top:0px">
 
         <b>Click the thumbnails below to select scenes.</b>
@@ -193,8 +183,6 @@
           <p>
             <b>Left click to rotate, right click to translate, scroll wheel to zoom.</b>
           </p>
-          <br>
-          <br>
 
           <h4><strong>Comparisons</strong></h4>
           <p>
@@ -545,32 +533,94 @@
     </div>
   </div>
 </section>
+<br>
+<br>
+<br>
 
-<!-- <section>
-  <div class="container">
+<section>
+  <div class="container" style="width:70%" id="Pharmacy-gaussian-video">
     <div class="row">
-      <div class="col-12 text-center">
-          <h3>Qualitative Results on ScanNet</h3>
-          <hr style="margin-top:0px">
-          <div class="embed-responsive embed-responsive-16by9">
-              <iframe style="clip-path: inset(1px 1px)" width="100%" height="100%" src="https://sketchfab.com/playlists/embed?collection=aae1e104a46f4633a4707be3c79c394c&autostart=1&autospin=0.25" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-          </div>
-          <br>
+      <div class="col-12">
+        <h2><strong>3. Combination with Gaussian Splatting</strong></h2>
+        <hr style="margin-top:0px">
+        <p class="text-justify">
+          We integrate our algorithm with Gaussian splatting and test it on a real-world medicine shelf. Using Gaussian centers as the reconstructed point cloud, we establish pixel-point correspondence based on rendering weight, effectively segmenting all medicine bottles and boxes. This underscores the value of our work in offline semantic mapping for AR/VR and robotics.
+        </p>
+        <div class="row justify-content-center" style="align-items:center; display:flex; width:80%;">
+          <video id="main-video" autobuffer muted autoplay loop controls>
+            <source src="videos/gaussian.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
   </div>
+  </div>
 </section>
-<br> -->
+<br>
+<br>
 
+
+<section>
+  <div class="container" style="width:70%" id="Pharmacy-gaussian-video">
+    <div class="row">
+      <div class="col-12">
+        <h2><strong>4. Quantitative Results</strong></h2>
+        <hr style="margin-top:0px">
+          Zero-shot 3D instance segmentation results on ScanNet++ and MatterPort3D. Our method outperform all baselines on all metrics significantly.
+          <div id="table">
+            <img src="images/table.png" width="100%">
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
 <br>
 <br>
+
+
+<section>
+  <div class="container" style="width:70%" id="Pharmacy-gaussian-video">
+    <div class="row">
+      <div class="col-12">
+        <h2><strong>5. Pipeline</strong></h2>
+        <hr style="margin-top:0px">
+          Overview pipeline of our method: a) We take segmented image sequences as input and b) extract all 2D masks from the input. c) To merge them, we build a global graph with each node as a mask. We use the view consensus rate, which is defined as the proportion of frames supporting the merging, to add edges between nodes. Each frame supports the merging only if there is a mask in this frame containing both nodes. d) Each mask cluster is merged into a 3D instance. For clarity, we only visualize three objects in the figure.
+          <div id="table">
+            <img src="images/pipeline.png" width="100%">
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
 <br>
+<br>
+
+
+<div class="container" style="width:70%">
+  <div class="row ">
+    <div class="col-12">
+      <h2><strong>6. Related Work</strong></h2>
+      <!-- <hr style="margin-top:0px"> -->
+      <p><a href="https://github.com/shiyoung77/OVIR-3D">OVIR-3D: Open-Vocabulary 3D Instance Retrieval Without Training on 3D Data</a></p>
+      <p><a href="https://open3dis.github.io/">Open3DIS: Open-Vocabulary 3D Instance Segmentation with 2D Mask Guidance</a></p>
+      <p><a href="https://github.com/yd-yin/SAI3D">SAI3D: Segment Any Instance in 3D with Open Vocabularies</a></p>
+      <p><a href="https://zju3dv.github.io/sam_graph/">SAM-guided Graph Cut for 3D Instance Segmentation</a></p>
+      <p><a href="https://openmask3d.github.io/">OpenMask3D: Open-Vocabulary 3D Instance Segmentation</a></p>
+      <p><a href="https://pengsongyou.github.io/openscene">OpenScene: 3D Scene Understanding with Open Vocabularies</a></p>
+      </pre>
+    </div>
+  </div>
+</div>
+<br>
+
 
 <!-- Contact -->
 <div class="container" style="width:70%">
   <div class="row ">
     <div class="col-12">
-      <h2><strong>Contact</strong></h2>
+      <h2><strong>7. Contact</strong></h2>
       <hr style="margin-top:0px">
       <p>If you have any questions, please feel free to contact <b>Mi Yan</b> at dorisyan@pku.edu.cn, 
          and <b>He Wang</b> at hewang@pku.edu.cn.
@@ -587,6 +637,7 @@
 </footer>
 
 <script src="js/script.js"></script>
+<!-- <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 
 </body>
 </html>
